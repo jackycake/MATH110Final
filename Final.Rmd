@@ -1,0 +1,133 @@
+---
+title: "Final"
+author: "Jacklyn Pi"
+date: "12/14/2017"
+output: pdf_document
+---
+
+```{r, echo=TRUE, error=FALSE, message=FALSE, warning=FALSE}
+save_dir <- getwd()
+setwd("~/Desktop/R Programming/final/R_Scripts")
+source("configuration.R")
+setwd(save_dir)
+```
+
+```{r, echo=TRUE, error=FALSE, message=FALSE, warning=FALSE}
+staples1<- c("2511", "2805", "2514")
+staples2<- c("2513", "2515","2518", "2517")
+sweetpotato<-"2533"
+dates<- "2619"
+luxury<-c("2656","2733","2918")
+coffee<-c("2630", "2633")
+```
+
+```{r, echo=TRUE, error=FALSE, message=FALSE, warning=FALSE}
+#Plot Objects
+staples1plotfood<-PlotCountry(df, "41", "Food", staples1)
+staples2plotfood<-PlotCountry(df, "41", "Food", staples2)
+staples1plotfeed<-PlotCountry(df, "41", "Feed", staples1)
+staples2plotfeed<-PlotCountry(df, "41", "Feed", staples2)
+sweetpotatoplot<-PlotCountry(df, "41", "Food", sweetpotato)
+datesplot<-PlotCountry(df, "41", "Food", dates)
+luxuryplot<-PlotCountry(df, "41", "Food", luxury)
+coffeeplot<-PlotCountry(df, "41", "Food", coffee)
+```
+
+```{r, echo=TRUE, error=FALSE, message=FALSE, warning=FALSE}
+p1 <- ggplot(staples1plotfood,aes(x=Year,y=value,colour=variable,group=variable)) + geom_line()
+p1 <- p1 + ggtitle("Staple Goods (Food) Production") + labs(y = "Output (1000 tonnes)")
+
+print(p1)
+
+p1_2 <- ggplot(staples2plotfood,aes(x=Year,y=value,colour=variable,group=variable)) + geom_line()  
+p1_2 <- p1_2 + ggtitle("Staple Goods (Food) Production")+ labs(y = "Output (1000 tonnes)") 
+print(p1_2)
+
+p2 <- ggplot(staples1plotfeed,aes(x=Year,y=value,colour=variable,group=variable)) + geom_line()  
+p2 <- p2 + ggtitle("Staple Goods (Feed) Production")+ labs(y = "Output (1000 tonnes)") + geom_smooth(method = "lm",aes(group=variable))
+print(p2)
+
+p2_2 <- ggplot(staples2plotfeed,aes(x=Year,y=value,colour=variable,group=variable)) + geom_line()  
+p2_2 <- p2_2 + ggtitle("Staple Goods (Feed) Production")+ labs(y = "Output (1000 tonnes)") + geom_smooth(method = "lm",aes(group=variable))
+print(p2_2)
+
+p3 <- ggplot(sweetpotatoplot,aes(x=Year,y=value,colour=variable,group=variable)) + geom_line()  
+p3 <- p3 + ggtitle("Sweet Potato Production")+ labs(y = "Output (1000 tonnes)")
+print(p3)
+
+p4 <- ggplot(datesplot,aes(x=Year,y=value,colour=variable,group=variable)) + geom_line()  
+p4 <- p4 + ggtitle("Dates Production")+ labs(y = "Output (1000 tonnes)")
+print(p4)
+
+p5 <- ggplot(luxuryplot,aes(x=Year,y=value,colour=variable,group=variable)) + geom_line()  
+p5 <- p5 + ggtitle("Luxury Goods Production")+ labs(y = "Output (1000 tonnes)")
+print(p5)
+
+p6 <- ggplot(coffeeplot,aes(x=Year,y=value,colour=variable,group=variable)) + geom_line() 
+p6 <- p6 + ggtitle("Coffee Production")+ labs(y = "Output (1000 tonnes)")
+print(p6)
+```
+
+```{r, echo=TRUE, error=FALSE, message=FALSE, warning=FALSE}
+#TimeSeries Objects
+staples1tsfood<-TimeSeries(df, "41", "Food", staples1)
+staples2tsfood<-TimeSeries(df, "41", "Food", staples2)
+staples1tsfeed<-TimeSeries(df, "41", "Feed", staples1)
+staples2tsfeed<-TimeSeries(df, "41", "Feed", staples2)
+sweetpotatots<-TimeSeries(df, "41", "Food", sweetpotato)
+datests<-TimeSeries(df, "41", "Food", dates)
+luxuryts<-TimeSeries(df, "41", "Food", luxury)
+coffeets<-TimeSeries(df, "41", "Food", coffee)
+
+#PlotTimeSeries Objects
+staples1changefood<- PlotCountryChange(staples1tsfood)
+staples2changefood<- PlotCountryChange(staples2tsfood)
+staples1changefeed<- PlotCountryChange(staples1tsfeed)
+staples2changefeed<- PlotCountryChange(staples2tsfeed)
+sweetpotatochange<- PlotCountryChange(sweetpotatots)
+dateschange<- PlotCountryChange(datests)
+luxurychange<- PlotCountryChange(luxuryts)
+coffeechange<- PlotCountryChange(coffeets)
+```
+
+
+```{r, echo=TRUE, error=FALSE, message=FALSE, warning=FALSE}
+p1 <- ggplot(staples1changefood,aes(x=Year,y=value,colour=variable,group=variable)) + geom_line() 
+p1 <- p1 + ggtitle("Staple Goods (Food) Annual Production Growth Rate") 
+p1 <- p1 + labs(y = "Output (1000 tonnes)") + geom_smooth(method = "lm",aes(group=variable))
+print(p1)
+
+p1_2 <- ggplot(staples2changefood,aes(x=Year,y=value,colour=variable,group=variable)) + geom_line() 
+p1_2 <- p1_2 + ggtitle("Staple Goods (Food) Annual Production Growth Rate") + labs(y = "Output (1000 tonnes)") 
+p1_2 <- p1_2 + geom_smooth(method = "lm",aes(group=variable))
+print(p1_2)
+
+p2 <- ggplot(staples1changefeed,aes(x=Year,y=value,colour=variable,group=variable)) + geom_line()  
+p2 <- p2 + ggtitle("Staple Goods (Feed) Annual Production Growth Rate") + labs(y = "Output (1000 tonnes)") 
+p2 <- p2 + geom_smooth(method = "lm",aes(group=variable))
+print(p2)
+
+p2_2 <- ggplot(staples2changefeed,aes(x=Year,y=value,colour=variable,group=variable)) + geom_line()  
+p2_2 <- p2_2 + ggtitle("Staple Goods (Feed) Annual Production Growth Rate") + labs(y = "Output (1000 tonnes)") 
+p2_2 <- p2_2 + geom_smooth(method = "lm",aes(group=variable))
+print(p2_2)
+
+p3 <- ggplot(sweetpotatochange,aes(x=Year,y=value,colour=variable,group=variable)) + geom_line()
+p3 <- p3 + ggtitle("Sweet Potato Annual Production Growth Rate") + labs(y = "Output (1000 tonnes)") 
+p3 <- p3 + geom_smooth(method = "lm",aes(group=variable))
+print(p3)
+
+p4 <- ggplot(dateschange,aes(x=Year,y=value,colour=variable,group=variable)) + geom_line() 
+p4 <- p4 + ggtitle("Dates Annual Production Growth Rate") + labs(y = "Output (1000 tonnes)") + geom_smooth(method = "lm",aes(group=variable))
+print(p4)
+
+p5 <- ggplot(luxurychange,aes(x=Year,y=value,colour=variable,group=variable)) + geom_line() 
+p5 <- p5 + ggtitle("Luxury Goods Annual Production Growth Rate") + labs(y = "Output (1000 tonnes)") 
+p5 <- p5 + geom_smooth(method = "lm",aes(group=variable))
+print(p5)
+
+p6 <- ggplot(coffeechange,aes(x=Year,y=value,colour=variable,group=variable)) + geom_line() 
+p6 <- p6 + ggtitle("Coffee Annual Production Growth Rate") + labs(y = "Output (1000 tonnes)") 
+p6 <- p6 + geom_smooth(method = "lm",aes(group=variable))
+print(p6)
+```
